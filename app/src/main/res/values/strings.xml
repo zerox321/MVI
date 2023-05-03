@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ComposeApp</string>
+    <string name="title_activity_auth">AuthActivity</string>
+    <string name="asd">sad</string>
+    <string name="next">التالي</string>
+    <string name="skip">تخطي</string>
+    <string name="start">ابدا</string>
+    <string name="enterPhoneNumber">أدخل رقم الهاتف</string>
+    <string name="phone_number">"رقم الهاتف  "</string>
 </resources>
