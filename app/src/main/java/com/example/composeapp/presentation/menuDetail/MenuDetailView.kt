@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 
-const val MenuDetailScreenTag="MenuDetailScreenTag"
 @Composable
 fun MenuDetailScreen(navController: NavController) {
 

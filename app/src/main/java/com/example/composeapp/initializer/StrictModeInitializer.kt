@@ -18,7 +18,7 @@ class StrictModeInitializer : Initializer<Unit> {
                 ThreadPolicy.Builder()
                     .detectDiskReads()
                     .detectDiskWrites()
-                    .detectNetwork() // or .detectAll() for all detectable problems
+                    .detectNetwork()
                     .penaltyLog()
                     .build()
             )
