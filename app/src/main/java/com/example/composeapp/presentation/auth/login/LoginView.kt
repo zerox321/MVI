@@ -34,14 +34,19 @@ import com.example.composeapp.presentation.ui.theme.Blue
 import com.example.composeapp.presentation.ui.widget.EditTextWithBorder
 import com.example.composeapp.presentation.ui.widget.GradientButton
 import com.example.composeapp.presentation.ui.widget.LoadingView
+import com.example.composeapp.utility.ToastUtil.showError
 import com.example.core.state.LoginViewStates
+import kotlinx.coroutines.channels.Channel
 
 
 @Composable
     fun LoginView (navController: NavController){
 
     val viewModel: LoginViewModel = hiltViewModel()
+
+
     val state  by viewModel.states.collectAsState()
+
     val phoneNumber  by viewModel.phoneNumber.collectAsState()
     val password  by viewModel.password.collectAsState()
     val context = LocalContext.current
@@ -147,8 +152,8 @@ import com.example.core.state.LoginViewStates
 
     }
     when (state){
-        LoginViewStates.EmptyPassword -> Unit
-        LoginViewStates.EmptyPhoneNumber -> Unit
+        LoginViewStates.EmptyPassword -> context.showError(message = "Enter Password")
+        LoginViewStates.EmptyPhoneNumber -> context.showError(message = "Enter Phone Number")
         LoginViewStates.Idle -> Unit
         LoginViewStates.Loading -> LoadingView()
         LoginViewStates.LoginSuccess -> context.startActivity(Intent(context, MenuActivity::class.java))

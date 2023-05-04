@@ -26,6 +26,8 @@ class LoginViewModel @Inject constructor():ViewModel(){
     private val _states= MutableStateFlow<LoginViewStates>(LoginViewStates.Idle)
     val states get() =  _states.asStateFlow()
     fun login()=viewModelScope.launch {
+        _states.emit(LoginViewStates.Idle)
+
         val phoneValue=_phoneNumber.value
         val passwordValue=_password.value
 
