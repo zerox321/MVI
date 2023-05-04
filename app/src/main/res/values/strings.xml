@@ -6,5 +6,11 @@
     <string name="skip">تخطي</string>
     <string name="start">ابدا</string>
     <string name="enterPhoneNumber">أدخل رقم الهاتف</string>
+    <string name="enterPassword">أدخل  كلمة السر</string>
     <string name="phone_number">"رقم الهاتف  "</string>
+    <string name="password">كلمة السر</string>
+    <string name="forget_password">نسيت كلمة السر؟</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="crate_account">ليس لديك حساب؟ إنشاء حساب</string>
+    <string name="crate_partner_account">هل تريد ان تكون شريكا لنا؟ قم بإنشاء حساب الان</string>
 </resources>

@@ -4,9 +4,11 @@ import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
+
 val Pink80 = Color(0xFFEFB8C8)
 val Green = Color(0xFF2CC5A4)
 val Blue = Color(0xFF6090FF)
+val LoadingBackGround = Color(0x336090FF)
 val INPUTBG = Color(0xFFEFF4FF)
 val Gray = Color(0xFF707070)
 val InActive_Green = Color(0x4D2CC5A4)
