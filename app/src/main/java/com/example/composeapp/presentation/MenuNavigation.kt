@@ -7,6 +7,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.composeapp.presentation.menu.MenuView
 import com.example.composeapp.presentation.menuDetail.MenuDetailScreen
+import com.example.core.entities.MenuItem
+import timber.log.Timber
 
 sealed class NavScreen(val route: String) {
     object MenuScreen : NavScreen("Menu")
@@ -26,8 +28,9 @@ fun MenuNavigation() {
     ) {
         composable(NavScreen.MenuScreen.route) { MenuView(navController = navController) }
         composable(
-            route = NavScreen.MenuDetails.route) {navBackStackEntry ->
-            val menuId = navBackStackEntry.arguments?.getString("menuId")
+            route = NavScreen.MenuDetails.route) {
+            val menuId = navController.currentBackStackEntry?.savedStateHandle?.get<MenuItem>("Menu")
+            Timber.e(menuId.toString())
             MenuDetailScreen(navController = navController)
         }
 

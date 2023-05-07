@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.composeapp.presentation.NavScreen
@@ -68,10 +69,8 @@ fun MenuView(navController: NavController) {
 
                             Button(
                                 onClick = {
-                                    navController.navigate(NavScreen.MenuDetails.route) {
-                                        launchSingleTop = true
-                                    }
-
+                                    navController.currentBackStackEntry?.savedStateHandle?.set("Menu",item)
+                                    navController.navigate(NavScreen.MenuDetails.route)
                                 },
                                 modifier = Modifier
                                     .constrainAs(button) {

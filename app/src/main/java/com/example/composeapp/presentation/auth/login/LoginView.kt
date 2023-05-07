@@ -35,6 +35,7 @@ import com.example.composeapp.presentation.ui.widget.EditTextWithBorder
 import com.example.composeapp.presentation.ui.widget.GradientButton
 import com.example.composeapp.presentation.ui.widget.LoadingView
 import com.example.composeapp.utility.ToastUtil.showError
+import com.example.core.state.LoginViewEvents
 import com.example.core.state.LoginViewStates
 import kotlinx.coroutines.channels.Channel
 
@@ -45,7 +46,7 @@ import kotlinx.coroutines.channels.Channel
     val viewModel: LoginViewModel = hiltViewModel()
 
 
-    val state  by viewModel.states.collectAsState()
+    val state  by viewModel.states.collectAsState(initial = LoginViewStates.Idle)
 
     val phoneNumber  by viewModel.phoneNumber.collectAsState()
     val password  by viewModel.password.collectAsState()
@@ -120,7 +121,7 @@ import kotlinx.coroutines.channels.Channel
 
         GradientButton(
             text = stringResource(id = R.string.login),
-            onClick = { viewModel.login() },
+            onClick = { viewModel.onEvent(event = LoginViewEvents.Login(phoneNumber=phoneNumber,password=password)) },
             modifier= Modifier.constrainAs(loginButton) {
                 top.linkTo(forgetPassword.bottom,16.dp)
                 start.linkTo(parent.start,16.dp)
