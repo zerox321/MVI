@@ -20,17 +20,17 @@
             android:exported="true"
             android:label="@string/title_activity_auth"
             android:theme="@style/Theme.ComposeApp" >
+
+        </activity>
+        <activity
+            android:name=".presentation.MenuActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".presentation.MenuActivity"
-            android:exported="true">
-
         </activity>
 
         <provider
