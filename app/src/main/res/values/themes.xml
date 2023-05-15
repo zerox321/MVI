@@ -2,4 +2,25 @@
 <resources>
 
     <style name="Theme.ComposeApp" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.SplashScreenExample.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">false</item>
+    </style>
+    <style name="Theme.SplashScreenExample" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/purple_700</item>
+        <!-- Primary brand color. -->
+        <item name="android:colorPrimary">@color/purple_500</item>
+    </style>
+
+
+    <style name="Theme.App.MySplash" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/ic_logo</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/purple_700</item>
+        <item name="postSplashScreenTheme">@style/Theme.SplashScreenExample</item>
+    </style>
 </resources>
