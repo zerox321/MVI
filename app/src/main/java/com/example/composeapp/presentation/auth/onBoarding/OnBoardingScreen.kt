@@ -1,8 +1,11 @@
 package com.example.composeapp.presentation.auth.onBoarding
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -25,30 +28,30 @@ import com.example.composeapp.presentation.ui.theme.Blue
 import com.example.composeapp.presentation.ui.theme.Gray
 import com.example.composeapp.presentation.ui.widget.PageIndicator
 import com.example.composeapp.presentation.ui.widget.Pager
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnBoardingScreen (navController: NavController){
 
-    val viewModel: OnBoardingViewModel = hiltViewModel()
-    val selectedIndex  by viewModel.selectedIndex.collectAsState()
+    val items by lazy {  listOf(OnBoardingItem.FirstPage, OnBoardingItem.SecondPage, OnBoardingItem.ThirdPage) }
+    val itemsCount by lazy { items.size }
+    fun isLastIndex (index:Int) = index < itemsCount-1
+    val pagerState = rememberPagerState()
+    val coroutineScope = rememberCoroutineScope()
 
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (pager,indicator ,next,skip) = createRefs()
 
-        Pager(
-        items = viewModel.items,
-        modifier = Modifier.constrainAs(pager) {
+        HorizontalPager(pageCount = itemsCount, state = pagerState,  modifier = Modifier.constrainAs(pager) {
             top.linkTo(parent.top)
             bottom.linkTo(indicator.top)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
-        },
-        initialIndex = selectedIndex,
-        onItemSelect = {index-> viewModel.setSelectedIndex(value=index) },
-        contentFactory = { item -> PageItem(item=item) }
-    )
-        PageIndicator(selectedPage = selectedIndex,numberOfPages=viewModel.itemsCount ,
+        }) { page -> PageItem(item= items[page]) }
+
+        PageIndicator(selectedPage = pagerState.currentPage,numberOfPages=itemsCount ,
             modifier = Modifier.constrainAs(indicator) {
                 top.linkTo(next.top)
                 bottom.linkTo(next.bottom)
@@ -56,15 +59,19 @@ fun OnBoardingScreen (navController: NavController){
                 end.linkTo(parent.end)
             })
 
-        Text(text = if (viewModel.isLastIndex(selectedIndex ))stringResource(R.string.next) else stringResource(R.string.start),
+        Text(text = if (isLastIndex(pagerState.currentPage ))stringResource(R.string.next) else stringResource(R.string.start),
             modifier = Modifier
                 .constrainAs(next) {
                     bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
                 }
-                .clickable(enabled = true) { if(viewModel.isLastIndex(selectedIndex) )viewModel.setSelectedIndex(value=selectedIndex + 1)
+                .clickable(enabled = true) {
 
-                else                     navController.navigate(AuthNavScreen.LoginScreen.route)
+                    coroutineScope.launch {
+                        if(isLastIndex(pagerState.currentPage) )pagerState.animateScrollToPage(pagerState.currentPage+1)
+                        else                     navController.navigate(AuthNavScreen.LoginScreen.route)
+                    }
+
                 }
                 .padding(10.dp)
         )
