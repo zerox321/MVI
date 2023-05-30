@@ -25,13 +25,13 @@ import com.example.composeapp.presentation.ui.theme.InActive_Green
 @Composable
 fun PageIndicator(
     numberOfPages: Int,
+    modifier: Modifier = Modifier,
     selectedPage: Int = 0,
     selectedColor: Color = Green,
     defaultColor: Color = InActive_Green,
     defaultRadius: Dp = 10.dp,
     selectedLength: Dp = 24.dp,
-    space: Dp = 6.dp,
-    modifier: Modifier = Modifier
+    space: Dp = 6.dp
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,

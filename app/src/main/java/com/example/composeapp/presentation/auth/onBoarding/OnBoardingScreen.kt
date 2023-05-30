@@ -6,6 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -16,15 +18,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.composeapp.R
 import com.example.composeapp.presentation.auth.navigation.AuthNavScreen
 import com.example.composeapp.presentation.menu.MenuViewModel
 import com.example.composeapp.presentation.ui.theme.Blue
+import com.example.composeapp.presentation.ui.theme.ComposeAppTheme
 import com.example.composeapp.presentation.ui.theme.Gray
 import com.example.composeapp.presentation.ui.widget.PageIndicator
 import com.example.composeapp.presentation.ui.widget.Pager
@@ -76,20 +81,16 @@ fun OnBoardingScreen (navController: NavController){
                 .padding(10.dp)
         )
 
-        Text(text = stringResource(R.string.skip),
-            modifier = Modifier
+        Text(text = stringResource(R.string.skip), modifier = Modifier
                 .constrainAs(skip) {
                     bottom.linkTo(parent.bottom)
                     end.linkTo(parent.end)
                 }
                 .clickable(enabled = true) { navController.navigate(AuthNavScreen.LoginScreen.route) }
-                .padding(10.dp)
-
-        )
+                .padding(10.dp))
     }
 
 }
-
 @Composable fun PageItem(item: OnBoardingItem) {
     Column(  modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -102,4 +103,13 @@ fun OnBoardingScreen (navController: NavController){
         Text(text =item.content, color = Gray, fontSize = 13.sp,  textAlign = TextAlign.Center,
         )
     }
+}
+@Preview()
+@Composable fun RenderOnBoardingItem(){
+    ComposeAppTheme {
+        Surface(modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background) {
+            PageItem( OnBoardingItem.FirstPage)
+}
+}
 }

@@ -1,4 +1,4 @@
-package com.example.composeapp.presentation.auth.login
+package com.example.composeapp.presentation.auth.register
 
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -29,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.composeapp.R
 import com.example.composeapp.presentation.MenuActivity
+import com.example.composeapp.presentation.auth.login.LoginViewModel
 import com.example.composeapp.presentation.auth.navigation.AuthNavScreen
 import com.example.composeapp.presentation.ui.theme.Blue
 import com.example.composeapp.presentation.ui.widget.EditTextWithBorder
@@ -41,7 +42,7 @@ import kotlinx.coroutines.channels.Channel
 
 
 @Composable
-    fun LoginView (navController: NavController){
+    fun RegisterView (navController: NavController){
 
     val viewModel: LoginViewModel = hiltViewModel()
 
@@ -57,7 +58,7 @@ import kotlinx.coroutines.channels.Channel
         .fillMaxSize()
         .verticalScroll(rememberScrollState())) {
 
-        val (header,headerText,phoneHeader ,phoneInput ,passwordHeader,passwordInput,loginButton,forgetPassword,createAccount,partnerAccount) = createRefs()
+        val (header,headerText,phoneHeader ,phoneInput ,passwordHeader,passwordInput,loginButton,createAccount,partnerAccount) = createRefs()
 
         Image(painter = painterResource(R.drawable.login_vector), contentDescription = stringResource(R.string.phone_number),modifier = Modifier.constrainAs(header) {
             top.linkTo(parent.top)
@@ -66,7 +67,7 @@ import kotlinx.coroutines.channels.Channel
         }.fillMaxWidth()
         )
 
-        Text(text = stringResource(R.string.login),
+        Text(text = stringResource(R.string.register),
             color = Color.White, fontSize = 24.sp,
             modifier = Modifier
                 .constrainAs(headerText) {
@@ -108,50 +109,18 @@ import kotlinx.coroutines.channels.Channel
                 end.linkTo(parent.end,16.dp)
             }
         )
-        Text(text = stringResource(R.string.forget_password),
-            modifier = Modifier
-                .constrainAs(forgetPassword) {
-                    top.linkTo(passwordInput.bottom, 16.dp)
-                    end.linkTo(parent.end, 16.dp)
-                }
-                .clickable(enabled = true) {
-                    navController.navigate(AuthNavScreen.ForgetPasswordScreen.route)
-                }
-                .padding(10.dp)
 
-        )
 
         GradientButton(
-            text = stringResource(id = R.string.login),
+            text = stringResource(id = R.string.register),
             onClick = { viewModel.onEvent(event = LoginViewEvents.Login(phoneNumber=phoneNumber,password=password)) },
             modifier= Modifier.constrainAs(loginButton) {
-                top.linkTo(forgetPassword.bottom,16.dp)
+                top.linkTo(passwordInput.bottom,16.dp)
                 start.linkTo(parent.start,16.dp)
                 end.linkTo(parent.end,16.dp)
             }
         )
-        Text(text = stringResource(R.string.crate_account),
-            modifier = Modifier
-                .constrainAs(createAccount) {
-                    top.linkTo(loginButton.bottom, 16.dp)
-                    start.linkTo(parent.start, 16.dp)
-                }
-                .clickable(enabled = true) {
-                    navController.navigate(AuthNavScreen.RegisterScreen.route)
-                }
-                .padding(10.dp)
-
-        )
-        Text(text = stringResource(R.string.crate_partner_account),
-            modifier = Modifier
-                .constrainAs(partnerAccount) {
-                    top.linkTo(createAccount.bottom, 16.dp)
-                    start.linkTo(parent.start, 16.dp)
-                }
-                .clickable(enabled = true) { }
-                .padding(10.dp)
-
-        )
+       
 
 
 
